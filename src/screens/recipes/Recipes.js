@@ -41,6 +41,7 @@ export const Recipes = ({ navigation }) => {
                     showsHorizontalScrollIndicator={false}
                     horizontal
                     data={recipes}
+                    keyExtractor={item => item.id}
                     renderItem={({ item }) => {
                         return (
                             <RecipeCard item={item} navigation={navigation} />
