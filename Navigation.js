@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 
 const RecipesStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator>
       <Stack.Screen name="Recipes" component={Recipes} />
       <Stack.Screen name="RecipeInfo" component={RecipeInfo} />
     </Stack.Navigator>
@@ -22,7 +22,7 @@ const RecipesStack = () => {
 
 const FavouritesStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator>
       <Stack.Screen name="Favourites" component={Favourites} />
       <Stack.Screen name="RecipeInfo" component={RecipeInfo} />
     </Stack.Navigator>
@@ -46,11 +46,11 @@ export const Navigation = () => {
                 ? 'md-heart-sharp'
                 : 'md-heart-outline';
             }
-            // You can return any component that you like here!
             return <Icon name={iconName} size={size} color={color} />
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
+          headerShown: false
         })}
       >
         <Tab.Screen name="Recipes" component={RecipesStack} />
