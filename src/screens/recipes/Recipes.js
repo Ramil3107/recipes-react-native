@@ -5,7 +5,7 @@ import { CenteredActivityIndicator } from '../../components/CenteredActivityIndi
 import { Image, SearchBar } from "@rneui/themed";
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export const Recipes = () => {
+export const Recipes = ({ navigation }) => {
 
     const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
     const [recipes, setRecipes] = useState();
@@ -53,8 +53,11 @@ export const Recipes = () => {
                     data={recipes}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity 
-                            style={styles.recipeCardWrapper}>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate("RecipeInfo", {
+                                    image: item.image
+                                })}
+                                style={styles.recipeCardWrapper}>
                                 <View>
                                     <Image
                                         PlaceholderContent={<ActivityIndicator />}
@@ -64,16 +67,7 @@ export const Recipes = () => {
                                     />
                                     <Icon
                                         onPress={() => console.log("Selected")}
-                                        style={{
-                                            shadowColor: '#000',
-                                            shadowOffset: { width: 0, height: 3 },
-                                            shadowOpacity: 1,
-                                            shadowRadius: 2,
-                                            elevation: 10,
-                                            position: "absolute",
-                                            left: "80%",
-                                            top: "5%"
-                                        }}
+                                        style={styles.recipeCardIcon}
                                         name={
                                             isFavouriteIconSelected
                                                 ? 'md-heart-sharp'
@@ -83,19 +77,7 @@ export const Recipes = () => {
                                         color="white"
                                     />
                                     <Text
-                                        style={{
-                                            shadowColor: '#000',
-                                            shadowOffset: { width: 0, height: 3 },
-                                            shadowOpacity: 1,
-                                            shadowRadius: 2,
-                                            elevation: 10,
-                                            color: "white",
-                                            fontWeight: "600",
-                                            fontSize: 30,
-                                            position: "absolute",
-                                            top: "80%",
-                                            marginHorizontal: 15,
-                                        }}>
+                                        style={styles.recipeCardText}>
                                         {item.dish}
                                     </Text>
                                 </View>
@@ -147,5 +129,28 @@ const styles = StyleSheet.create({
     recipeCardImage: {
         height: 500,
         width: 320,
+    },
+    recipeCardIcon: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 1,
+        shadowRadius: 2,
+        elevation: 10,
+        position: "absolute",
+        left: "80%",
+        top: "5%"
+    },
+    recipeCardText: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 1,
+        shadowRadius: 2,
+        elevation: 10,
+        color: "white",
+        fontWeight: "600",
+        fontSize: 30,
+        position: "absolute",
+        top: "80%",
+        marginHorizontal: 15,
     }
 })
