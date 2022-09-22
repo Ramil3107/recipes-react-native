@@ -1,12 +1,14 @@
-import { Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { CenteredActivityIndicator } from '../../components/CenteredActivityIndicator';
+import { Image, SearchBar } from "@rneui/themed";
 
 export const Recipes = () => {
 
     const [recipes, setRecipes] = useState();
     const [isLoading, setIsLoading] = useState(true);
+    const [searchBarValue, setSearchBarValue] = useState();
 
     const getRecipes = async () => {
         try {
@@ -32,23 +34,34 @@ export const Recipes = () => {
             {isLoading && <CenteredActivityIndicator />}
 
             {!isLoading && <>
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.searchInput} />
+                <View style={styles.searchBarWrapper}>
+                    <SearchBar
+                        placeholder='Search recipes...'
+                        value={searchBarValue}
+                        onChangeText={setSearchBarValue}
+                        containerStyle={styles.searchBarContainer}
+                        inputContainerStyle={styles.searchBarInputContainer}
+                        inputStyle={styles.searchBarInput}
+                    />
                 </View>
 
-                {/* ADD IMAGES TO BACK */}
-
                 <FlatList
-                    data={recipes} 
-                    renderItem={({item}) => {
-                        return <TouchableOpacity>
-                            <View>
-                                <Text>{item.dish}</Text>
-                            </View>
-                        </TouchableOpacity>
+                    horizontal
+                    data={recipes}
+                    renderItem={({ item }) => {
+                        return (
+                            <TouchableOpacity style={styles.recipeCardWrapper}>
+                                <Image
+                                    PlaceholderContent={<ActivityIndicator />}
+                                    borderRadius={15}
+                                    style={styles.recipeCardImage}
+                                    source={{ uri: item.image }}
+                                />
+                            </TouchableOpacity>
+                        )
                     }}
-                    keyExtractor={item => item.id}
-                    />
+                />
+
             </>
             }
 
@@ -58,20 +71,39 @@ export const Recipes = () => {
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
+    searchBarWrapper: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        elevation: 5,
         alignItems: "center"
     },
-    inputContainer: {
-        alignItems: "center",
-        marginVertical: 15
+    searchBarContainer: {
+        marginVertical: 10,
+        marginBottom: 20,
+        backgroundColor: "auto",
+        borderBottomWidth: 0,
+        borderTopWidth: 0,
     },
-    searchInput: {
-        borderColor: "black",
-        borderWidth: 1,
-        width: "70%",
-        borderRadius: 7,
-        height: 25
+    searchBarInputContainer: {
+        backgroundColor: "white",
+        borderRadius: 100,
+        width: "90%",
+        height: 40
+    },
+    recipeCardWrapper: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+        elevation: 5,
+        alignItems: "center",
+        marginHorizontal: 10,
+        marginLeft: 20
+    },
+    recipeCardImage: {
+        height: 500,
+        width: 320,
     }
 })
