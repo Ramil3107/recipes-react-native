@@ -1,16 +1,15 @@
-import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, FlatList, StyleSheet, View } from 'react-native';
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { CenteredActivityIndicator } from '../../components/CenteredActivityIndicator';
-import { Image, SearchBar } from "@rneui/themed";
-import Icon from 'react-native-vector-icons/Ionicons';
+import { SearchBar } from "@rneui/themed";
+import { RecipeCard } from './components/RecipeCard';
+import { SearchBarCustom } from '../../components/SearchBar';
 
 export const Recipes = ({ navigation }) => {
 
-    const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
     const [recipes, setRecipes] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const [searchBarValue, setSearchBarValue] = useState();
 
     const getRecipes = async () => {
         try {
@@ -36,16 +35,7 @@ export const Recipes = ({ navigation }) => {
             {isLoading && <CenteredActivityIndicator />}
 
             {!isLoading && <>
-                <View style={styles.searchBarWrapper}>
-                    <SearchBar
-                        placeholder='Search recipes...'
-                        value={searchBarValue}
-                        onChangeText={setSearchBarValue}
-                        containerStyle={styles.searchBarContainer}
-                        inputContainerStyle={styles.searchBarInputContainer}
-                        inputStyle={styles.searchBarInput}
-                    />
-                </View>
+                <SearchBarCustom />
 
                 <FlatList
                     showsHorizontalScrollIndicator={false}
@@ -53,104 +43,14 @@ export const Recipes = ({ navigation }) => {
                     data={recipes}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate("RecipeInfo", {
-                                    image: item.image
-                                })}
-                                style={styles.recipeCardWrapper}>
-                                <View>
-                                    <Image
-                                        PlaceholderContent={<ActivityIndicator />}
-                                        borderRadius={15}
-                                        style={styles.recipeCardImage}
-                                        source={{ uri: item.image }}
-                                    />
-                                    <Icon
-                                        onPress={() => console.log("Selected")}
-                                        style={styles.recipeCardIcon}
-                                        name={
-                                            isFavouriteIconSelected
-                                                ? 'md-heart-sharp'
-                                                : "md-heart-outline"
-                                        }
-                                        size={40}
-                                        color="white"
-                                    />
-                                    <Text
-                                        style={styles.recipeCardText}>
-                                        {item.dish}
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
+                            <RecipeCard item={item} navigation={navigation} />
                         )
                     }}
                 />
-
             </>
             }
-
         </>
     )
 }
 
 
-const styles = StyleSheet.create({
-    searchBarWrapper: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 5,
-        alignItems: "center"
-    },
-    searchBarContainer: {
-        marginVertical: 10,
-        marginBottom: 30,
-        backgroundColor: "auto",
-        borderBottomWidth: 0,
-        borderTopWidth: 0,
-    },
-    searchBarInputContainer: {
-        backgroundColor: "white",
-        borderRadius: 100,
-        width: "90%",
-        height: 40
-    },
-    recipeCardWrapper: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-        elevation: 5,
-        alignItems: "center",
-        marginHorizontal: 10,
-        marginLeft: 20
-    },
-    recipeCardImage: {
-        height: 500,
-        width: 320,
-    },
-    recipeCardIcon: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 1,
-        shadowRadius: 2,
-        elevation: 10,
-        position: "absolute",
-        left: "80%",
-        top: "5%"
-    },
-    recipeCardText: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 1,
-        shadowRadius: 2,
-        elevation: 10,
-        color: "white",
-        fontWeight: "600",
-        fontSize: 30,
-        position: "absolute",
-        top: "80%",
-        marginHorizontal: 15,
-    }
-})
