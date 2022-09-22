@@ -46,6 +46,7 @@ export const Recipes = () => {
                 </View>
 
                 <FlatList
+                    showsHorizontalScrollIndicator={false}
                     horizontal
                     data={recipes}
                     renderItem={({ item }) => {
