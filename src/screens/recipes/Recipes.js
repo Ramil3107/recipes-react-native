@@ -3,9 +3,11 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { CenteredActivityIndicator } from '../../components/CenteredActivityIndicator';
 import { Image, SearchBar } from "@rneui/themed";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const Recipes = () => {
 
+    const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
     const [recipes, setRecipes] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [searchBarValue, setSearchBarValue] = useState();
@@ -51,13 +53,52 @@ export const Recipes = () => {
                     data={recipes}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity style={styles.recipeCardWrapper}>
-                                <Image
-                                    PlaceholderContent={<ActivityIndicator />}
-                                    borderRadius={15}
-                                    style={styles.recipeCardImage}
-                                    source={{ uri: item.image }}
-                                />
+                            <TouchableOpacity 
+                            style={styles.recipeCardWrapper}>
+                                <View>
+                                    <Image
+                                        PlaceholderContent={<ActivityIndicator />}
+                                        borderRadius={15}
+                                        style={styles.recipeCardImage}
+                                        source={{ uri: item.image }}
+                                    />
+                                    <Icon
+                                        onPress={() => console.log("Selected")}
+                                        style={{
+                                            shadowColor: '#000',
+                                            shadowOffset: { width: 0, height: 3 },
+                                            shadowOpacity: 1,
+                                            shadowRadius: 2,
+                                            elevation: 10,
+                                            position: "absolute",
+                                            left: "80%",
+                                            top: "5%"
+                                        }}
+                                        name={
+                                            isFavouriteIconSelected
+                                                ? 'md-heart-sharp'
+                                                : "md-heart-outline"
+                                        }
+                                        size={40}
+                                        color="white"
+                                    />
+                                    <Text
+                                        style={{
+                                            shadowColor: '#000',
+                                            shadowOffset: { width: 0, height: 3 },
+                                            shadowOpacity: 1,
+                                            shadowRadius: 2,
+                                            elevation: 10,
+                                            color: "white",
+                                            fontWeight: "600",
+                                            fontSize: 30,
+                                            position: "absolute",
+                                            top: "80%",
+                                            marginHorizontal: 15,
+                                        }}>
+                                        {item.dish}
+                                    </Text>
+                                </View>
                             </TouchableOpacity>
                         )
                     }}
@@ -82,7 +123,7 @@ const styles = StyleSheet.create({
     },
     searchBarContainer: {
         marginVertical: 10,
-        marginBottom: 20,
+        marginBottom: 30,
         backgroundColor: "auto",
         borderBottomWidth: 0,
         borderTopWidth: 0,
