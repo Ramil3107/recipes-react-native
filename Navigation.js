@@ -37,11 +37,11 @@ export const Navigation = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Recipes') {
+            if (route.name === "RecipesTab") {
               iconName = focused
                 ? 'book'
                 : 'book-outline';
-            } else if (route.name === 'Favourites') {
+            } else if (route.name === "FavouritesTab") {
               iconName = focused
                 ? 'md-heart-sharp'
                 : 'md-heart-outline';
@@ -53,8 +53,8 @@ export const Navigation = () => {
           headerShown: false
         })}
       >
-        <Tab.Screen name="Recipes" component={RecipesStack} />
-        <Tab.Screen name="Favourites" component={FavouritesStack} />
+        <Tab.Screen name="RecipesTab" component={RecipesStack} options={{title: "Recipes"}} />
+        <Tab.Screen name="FavouritesTab" component={FavouritesStack} options={{title: "Favourites"}}/>
       </Tab.Navigator>
     </NavigationContainer>
   )
