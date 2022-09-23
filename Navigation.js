@@ -14,7 +14,7 @@ const RecipesStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Recipes" component={Recipes} />
-      <Stack.Screen name="RecipeInfo" component={RecipeInfo} />
+      <Stack.Screen name="RecipeInfo" component={RecipeInfo}/>
     </Stack.Navigator>
   )
 }

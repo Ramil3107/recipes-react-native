@@ -12,7 +12,11 @@ export const RecipeCard = ({ item, navigation }) => {
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate("RecipeInfo", {
-                image: item.image
+                image: item.image,
+                ingredients: item.ingredients,
+                coockingTime: item.coockingTimeMin,
+                recipe: item.recipe,
+                dish: item.dish
             })}
             style={styles.recipeCardWrapper}>
             <View>
