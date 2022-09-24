@@ -12,6 +12,11 @@ export const recipesAPI = {
         const data = response.data
         return data
     },
+    getFilteredRecipes: async (text) => {
+        const response = await instance.get(`recipes?dish=${text}`)
+        const data = response.data
+        return data
+    },
     getFavouriteRecipes: async () => {
         const response = await instance.get("recipes?favourite=true")
         const data = response.data

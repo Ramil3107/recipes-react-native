@@ -1,25 +1,21 @@
 import { SearchBar } from "@rneui/themed"
-import { useState } from "react";
 import { StyleSheet, View } from "react-native"
 
 
-export const SearchBarCustom = () => {
+export const SearchBarCustom = ({ value, onChangeText }) => {
 
-    const [searchBarValue, setSearchBarValue] = useState();
-
-
-  return (
-    <View style={styles.searchBarWrapper}>
-                    <SearchBar
-                        placeholder='Search recipes...'
-                        value={searchBarValue}
-                        onChangeText={setSearchBarValue}
-                        containerStyle={styles.searchBarContainer}
-                        inputContainerStyle={styles.searchBarInputContainer}
-                        inputStyle={styles.searchBarInput}
-                    />
-                </View>
-  )
+    return (
+        <View style={styles.searchBarWrapper}>
+            <SearchBar
+                placeholder='Search recipes...'
+                value={value}
+                onChangeText={onChangeText}
+                containerStyle={styles.searchBarContainer}
+                inputContainerStyle={styles.searchBarInputContainer}
+                inputStyle={styles.searchBarInput}
+            />
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({

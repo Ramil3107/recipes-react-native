@@ -18,6 +18,19 @@ export const getRecipesThunk = createAsyncThunk(
     }
 )
 
+export const getFilteredRecipesThunk = createAsyncThunk(
+    "allRecipes/getRecipesThunk",
+    async (text, { dispatch }) => {
+        try {
+            const recipes = await recipesAPI.getFilteredRecipes(text)
+            dispatch(setRecipes(recipes))
+
+        } catch (error) {
+            Alert.alert(error.message)
+        }
+    }
+)
+
 export const getFavouriteRecipesThunk = createAsyncThunk(
     "allRecipes/getFavouriteRecipesThunk",
     async (_, { dispatch }) => {
