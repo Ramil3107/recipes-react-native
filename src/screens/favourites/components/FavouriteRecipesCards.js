@@ -4,7 +4,7 @@ import { Image, TouchableOpacity } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-export const FavouriteRecipesCards = ({ favouriteRecipes, navigation}) => {
+export const FavouriteRecipesCards = ({ favouriteRecipes, navigation }) => {
 
     const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
 
@@ -34,7 +34,7 @@ export const FavouriteRecipesCards = ({ favouriteRecipes, navigation}) => {
                             onPress={() => console.log("Selected")}
                             style={styles.recipeCardIcon}
                             name={
-                                isFavouriteIconSelected
+                                item.favourite
                                     ? 'md-heart-sharp'
                                     : "md-heart-outline"
                             }

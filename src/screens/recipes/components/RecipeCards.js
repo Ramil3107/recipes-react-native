@@ -37,7 +37,7 @@ export const RecipeCards = ({ recipes, navigation }) => {
                                 onPress={() => console.log("Selected")}
                                 style={styles.recipeCardIcon}
                                 name={
-                                    isFavouriteIconSelected
+                                        item.favourite
                                         ? 'md-heart-sharp'
                                         : "md-heart-outline"
                                 }
