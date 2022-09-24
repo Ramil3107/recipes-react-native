@@ -1,8 +1,7 @@
-import { Alert, FlatList, StyleSheet, View } from 'react-native';
+import { Alert } from 'react-native';
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { CenteredActivityIndicator } from '../../components/CenteredActivityIndicator';
-import { SearchBar } from "@rneui/themed";
 import { RecipeCards } from './components/RecipeCards';
 import { SearchBarCustom } from '../../components/SearchBar';
 
@@ -22,13 +21,11 @@ export const Recipes = ({ navigation }) => {
             Alert.alert(error.message)
             setIsLoading(false)
         }
-
     }
 
     useEffect(() => {
         getRecipes()
     }, [])
-
 
     return (
         <>
