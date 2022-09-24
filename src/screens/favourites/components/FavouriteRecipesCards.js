@@ -2,14 +2,15 @@ import { useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet, Text } from "react-native";
 import { Image, TouchableOpacity } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useDispatch } from "react-redux";
+import { getFavouriteRecipesThunk } from "../../../../redux/recipesSlice";
 
 
-export const FavouriteRecipesCards = ({ favouriteRecipes, navigation }) => {
-
-    const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
-
+export const FavouriteRecipesCards = ({ favouriteRecipes, navigation, onRefresh, refreshing }) => {
     return (
         <FlatList
+            refreshing={refreshing}
+            onRefresh={onRefresh}
             data={favouriteRecipes}
             keyExtractor={item => item.id}
             renderItem={({ item }) => {
