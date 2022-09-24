@@ -1,16 +1,16 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, RefreshControl, ScrollView } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFavouriteRecipesThunk, setFavouriteRecipes } from '../../../redux/recipesSlice';
+import { getFavouriteRecipesThunk } from '../../../redux/recipesSlice';
 import { CenteredActivityIndicator } from '../../components/CenteredActivityIndicator';
 import { SearchBarCustom } from '../../components/SearchBar'
 import { FavouriteRecipesCards } from './components/FavouriteRecipesCards';
+import { FavouritesEmtyState } from './components/FavouritesEmtyState';
+
 
 export const Favourites = ({ navigation }) => {
 
     const dispatch = useDispatch()
-
     const { favouriteRecipes, isFavouriteRecipeLoading } = useSelector(state => state.allRecipes)
     const [refreshing, setRefreshing] = useState(false)
 
@@ -28,7 +28,7 @@ export const Favourites = ({ navigation }) => {
         <>
             {isFavouriteRecipeLoading && <CenteredActivityIndicator />}
 
-            {!isFavouriteRecipeLoading && <>
+            {!isFavouriteRecipeLoading && favouriteRecipes.length > 0 && <>
 
                 <SearchBarCustom />
 
@@ -37,6 +37,11 @@ export const Favourites = ({ navigation }) => {
                     onRefresh={onRefresh}
                     navigation={navigation}
                     favouriteRecipes={favouriteRecipes} />
+            </>
+            }
+
+            {!isFavouriteRecipeLoading && favouriteRecipes.length === 0 && <>
+                <FavouritesEmtyState navigation={navigation} />
             </>
             }
 
