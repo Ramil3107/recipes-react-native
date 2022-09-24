@@ -19,7 +19,7 @@ export const Recipes = ({ navigation }) => {
             setRecipes(data)
             setIsLoading(false)
         } catch (error) {
-            Alert.alert(error)
+            Alert.alert(error.message)
             setIsLoading(false)
         }
 
