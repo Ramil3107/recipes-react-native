@@ -22,9 +22,25 @@ export const getFilteredRecipesThunk = createAsyncThunk(
     "allRecipes/getRecipesThunk",
     async (text, { dispatch }) => {
         try {
-            const recipes = await recipesAPI.getFilteredRecipes(text)
-            dispatch(setRecipes(recipes))
+            const filteredRecipes = await recipesAPI.getFilteredRecipes(text)
+            dispatch(setRecipes(filteredRecipes))
 
+        } catch (error) {
+            Alert.alert(error.message)
+        }
+    }
+)
+export const getFilteredFavouriteRecipesThunk = createAsyncThunk(
+    "allRecipes/getRecipesThunk",
+    async (text, { dispatch }) => {
+        try {
+            const favouriteRecipes = await recipesAPI.getFavouriteRecipes()
+            const filteredFavouriteRecipes = favouriteRecipes.filter(item => {
+                if (item.dish.match(text)) {
+                    return item
+                }
+            })
+            dispatch(setFavouriteRecipes(filteredFavouriteRecipes))
         } catch (error) {
             Alert.alert(error.message)
         }

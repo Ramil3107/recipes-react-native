@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Image, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFavouriteRecipesThunk } from '../../../redux/recipesSlice';
+import { getFavouriteRecipesThunk, getFilteredFavouriteRecipesThunk } from '../../../redux/recipesSlice';
 import { CenteredActivityIndicator } from '../../components/CenteredActivityIndicator';
 import { SearchBarCustom } from '../../components/SearchBar'
 import { FavouriteRecipesCards } from './components/FavouriteRecipesCards';
@@ -13,6 +12,8 @@ export const Favourites = ({ navigation }) => {
     const dispatch = useDispatch()
     const { favouriteRecipes, isFavouriteRecipeLoading } = useSelector(state => state.allRecipes)
     const [refreshing, setRefreshing] = useState(false)
+    const [searchingRecipe, setSearchingRecipe] = useState()
+
 
     useEffect(() => {
         dispatch(getFavouriteRecipesThunk())
@@ -24,14 +25,21 @@ export const Favourites = ({ navigation }) => {
         setRefreshing(false)
     }
 
+    const onSearchingRecipe = (searchingRecipe) => {
+        setSearchingRecipe(searchingRecipe)
+        dispatch(getFilteredFavouriteRecipesThunk(searchingRecipe))
+    }
+
     return (
         <>
+            <SearchBarCustom
+                value={searchingRecipe}
+                onChangeText={onSearchingRecipe}
+            />
+
             {isFavouriteRecipeLoading && <CenteredActivityIndicator />}
 
             {!isFavouriteRecipeLoading && favouriteRecipes.length > 0 && <>
-
-                <SearchBarCustom />
-
                 <FavouriteRecipesCards
                     refreshing={refreshing}
                     onRefresh={onRefresh}
