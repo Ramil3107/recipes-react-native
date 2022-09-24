@@ -1,48 +1,59 @@
 import { useState } from "react";
-import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
-export const RecipeCard = ({ item, navigation }) => {
+export const RecipeCards = ({ recipes, navigation }) => {
 
     const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
 
 
     return (
-        <TouchableOpacity
-            onPress={() => navigation.navigate("RecipeInfo", {
-                image: item.image,
-                ingredients: item.ingredients,
-                coockingTime: item.coockingTimeMin,
-                recipe: item.recipe,
-                dish: item.dish
-            })}
-            style={styles.recipeCardWrapper}>
-            <View>
-                <Image
-                    PlaceholderContent={<ActivityIndicator />}
-                    borderRadius={15}
-                    style={styles.recipeCardImage}
-                    source={{ uri: item.image }}
-                />
-                <Icon
-                    onPress={() => console.log("Selected")}
-                    style={styles.recipeCardIcon}
-                    name={
-                        isFavouriteIconSelected
-                            ? 'md-heart-sharp'
-                            : "md-heart-outline"
-                    }
-                    size={40}
-                    color="white"
-                />
-                <Text
-                    style={styles.recipeCardText}>
-                    {item.dish}
-                </Text>
-            </View>
-        </TouchableOpacity>
+        <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={recipes}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => {
+                return (
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        onPress={() => navigation.navigate("RecipeInfo", {
+                            image: item.image,
+                            ingredients: item.ingredients,
+                            coockingTime: item.coockingTimeMin,
+                            recipe: item.recipe,
+                            dish: item.dish
+                        })}
+                        style={styles.recipeCardWrapper}>
+                        <View>
+                            <Image
+                                PlaceholderContent={<ActivityIndicator />}
+                                borderRadius={15}
+                                style={styles.recipeCardImage}
+                                source={{ uri: item.image }}
+                            />
+                            <Icon
+                                onPress={() => console.log("Selected")}
+                                style={styles.recipeCardIcon}
+                                name={
+                                    isFavouriteIconSelected
+                                        ? 'md-heart-sharp'
+                                        : "md-heart-outline"
+                                }
+                                size={40}
+                                color="white"
+                            />
+                            <Text
+                                style={styles.recipeCardText}>
+                                {item.dish}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                )
+            }}
+        />
     )
 }
 

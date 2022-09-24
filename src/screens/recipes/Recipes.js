@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { CenteredActivityIndicator } from '../../components/CenteredActivityIndicator';
 import { SearchBar } from "@rneui/themed";
-import { RecipeCard } from './components/RecipeCard';
+import { RecipeCards } from './components/RecipeCard';
 import { SearchBarCustom } from '../../components/SearchBar';
 
 export const Recipes = ({ navigation }) => {
@@ -37,17 +37,7 @@ export const Recipes = ({ navigation }) => {
             {!isLoading && <>
                 <SearchBarCustom />
 
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    horizontal
-                    data={recipes}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => {
-                        return (
-                            <RecipeCard item={item} navigation={navigation} />
-                        )
-                    }}
-                />
+                <RecipeCards navigation={navigation} recipes={recipes} />
             </>
             }
         </>
