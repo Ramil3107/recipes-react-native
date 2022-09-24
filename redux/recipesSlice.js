@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { recipesAPI } from "../api/api";
 
 
 export const getRecipesThunk = createAsyncThunk(
@@ -7,9 +8,8 @@ export const getRecipesThunk = createAsyncThunk(
     async (_, { dispatch }) => {
         try {
             dispatch(setIsRecipesLoading(true))
-            const response = await axios.get("https://6321d90d82f8687273baba5a.mockapi.io/enjoy/recipes")
-            const data = response.data
-            dispatch(setRecipes(data))
+            const recipes = await recipesAPI.getRecipes()
+            dispatch(setRecipes(recipes))
             dispatch(setIsRecipesLoading(false))
 
         } catch (error) {
@@ -24,9 +24,8 @@ export const getFavouriteRecipesThunk = createAsyncThunk(
     async (_, { dispatch }) => {
         try {
             dispatch(setIsFavouriteRecipesLoading(true))
-            const response = await axios.get("https://6321d90d82f8687273baba5a.mockapi.io/enjoy/recipes?favourite=true")
-            const data = response.data
-            dispatch(setFavouriteRecipes(data))
+            const favouriteRecipes = await recipesAPI.getFavouriteRecipes()
+            dispatch(setFavouriteRecipes(favouriteRecipes))
             dispatch(setIsFavouriteRecipesLoading(false))
 
         } catch (error) {
