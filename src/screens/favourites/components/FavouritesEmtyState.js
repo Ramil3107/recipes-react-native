@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         alignItems: "center",
-        top: "15%"
+        top: "10%"
     },
     image: {
         width: 250,
