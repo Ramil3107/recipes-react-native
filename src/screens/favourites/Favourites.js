@@ -5,7 +5,7 @@ import { CenteredActivityIndicator } from '../../components/CenteredActivityIndi
 import { SearchBarCustom } from '../../components/SearchBar'
 import { FavouriteRecipesCards } from './components/FavouriteRecipesCards';
 
-export const Favourites = () => {
+export const Favourites = ({ navigation }) => {
 
 
     const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +37,9 @@ export const Favourites = () => {
             {!isLoading && <>
                 <SearchBarCustom />
 
-                <FavouriteRecipesCards favouriteRecipes={favouriteRecipes} />
+                <FavouriteRecipesCards
+                    navigation={navigation}
+                    favouriteRecipes={favouriteRecipes} />
             </>
             }
 

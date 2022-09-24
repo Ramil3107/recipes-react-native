@@ -4,7 +4,7 @@ import { Image, TouchableOpacity } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-export const FavouriteRecipesCards = ({ favouriteRecipes }) => {
+export const FavouriteRecipesCards = ({ favouriteRecipes, navigation}) => {
 
     const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
 
@@ -15,6 +15,13 @@ export const FavouriteRecipesCards = ({ favouriteRecipes }) => {
             renderItem={({ item }) => {
                 return (
                     <TouchableOpacity
+                        onPress={() => navigation.navigate("RecipeInfo", {
+                            image: item.image,
+                            ingredients: item.ingredients,
+                            coockingTime: item.coockingTimeMin,
+                            recipe: item.recipe,
+                            dish: item.dish
+                        })}
                         activeOpacity={0.8}
                         style={styles.recipeCardWrapper}>
                         <Image
@@ -49,7 +56,7 @@ export const FavouriteRecipesCards = ({ favouriteRecipes }) => {
 const styles = StyleSheet.create({
     recipeCardWrapper: {
         alignItems: "center",
-        marginBottom:30
+        marginBottom: 30
     },
     recipeCardImage: {
         height: 300,
