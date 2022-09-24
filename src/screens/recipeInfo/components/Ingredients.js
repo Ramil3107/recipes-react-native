@@ -27,7 +27,7 @@ export const Ingredients = ({ ingredients }) => {
 
 const styles = StyleSheet.create({
     ingredientItem: {
-        backgroundColor: "rgb(96,191,113)",
+        backgroundColor: "tomato",
         alignSelf: "flex-start",
         padding: 8,
         paddingHorizontal: 15,
