@@ -16,5 +16,13 @@ export const recipesAPI = {
         const response = await instance.get("recipes?favourite=true")
         const data = response.data
         return data
+    },
+    getRecipe: async (id) => {
+        const response = await instance.get(`recipes/${id}`)
+        const data = response.data
+        return data
+    },
+    changeRecipeFavouriteStatus: async (id, status) => {
+        await instance.put(`recipes/${id}`, { "favourite": !status })
     }
 }

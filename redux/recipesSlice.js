@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { recipesAPI } from "../api/api";
 
 
@@ -35,6 +34,22 @@ export const getFavouriteRecipesThunk = createAsyncThunk(
     }
 )
 
+export const toggleFavouriteThunk = createAsyncThunk(
+    "allRecipes/toggleFavouriteThunk",
+    async (id, { dispatch }) => {
+        try {
+            dispatch(toggleFavourite(id))
+            const recipe = await recipesAPI.getRecipe(id)
+            const favouriteStatus = recipe.favourite
+            await recipesAPI.changeRecipeFavouriteStatus(id, favouriteStatus)
+            const favouriteRecipes = await recipesAPI.getFavouriteRecipes()
+            dispatch(setFavouriteRecipes(favouriteRecipes))
+        } catch (error) {
+            Alert.alert(error.message)
+        }
+    }
+)
+
 const initialState = {
     recipes: null,
     favouriteRecipes: null,
@@ -58,9 +73,19 @@ const recipesSlice = createSlice({
         setIsFavouriteRecipesLoading: (state, action) => {
             state.isFavouriteRecipeLoading = action.payload
         },
+        toggleFavourite: (state, action) => {
+            state.recipes = state.recipes.map(recipe => {
+                if (recipe.id == action.payload) {
+                    recipe.favourite = !recipe.favourite
+                    return recipe
+                } else {
+                    return recipe
+                }
+            })
+        },
     }
 })
 
 
-export const { setRecipes, setFavouriteRecipes, setIsRecipesLoading, setIsFavouriteRecipesLoading } = recipesSlice.actions
+export const { toggleFavourite, setRecipes, setFavouriteRecipes, setIsRecipesLoading, setIsFavouriteRecipesLoading } = recipesSlice.actions
 export default recipesSlice.reducer

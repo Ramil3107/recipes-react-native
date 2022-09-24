@@ -1,12 +1,17 @@
-import { useState } from "react";
 import { ActivityIndicator, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useDispatch } from "react-redux";
+import { toggleFavouriteThunk } from "../../../../redux/recipesSlice";
 
 
 
 export const RecipeCards = ({ recipes, navigation }) => {
 
-    const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
+    const dispatch = useDispatch()
+
+    const onFavouriteIconClick = (id) => {
+        dispatch(toggleFavouriteThunk(id))
+    }
 
     return (
         <FlatList
@@ -34,10 +39,10 @@ export const RecipeCards = ({ recipes, navigation }) => {
                                 source={{ uri: item.image }}
                             />
                             <Icon
-                                onPress={() => console.log("Selected")}
+                                onPress={() => onFavouriteIconClick(item.id)}
                                 style={styles.recipeCardIcon}
                                 name={
-                                        item.favourite
+                                    item.favourite
                                         ? 'md-heart-sharp'
                                         : "md-heart-outline"
                                 }
