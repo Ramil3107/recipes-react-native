@@ -8,7 +8,6 @@ export const RecipeCards = ({ recipes, navigation }) => {
 
     const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
 
-
     return (
         <FlatList
             showsHorizontalScrollIndicator={false}

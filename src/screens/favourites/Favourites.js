@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Alert, FlatList } from 'react-native';
 import { CenteredActivityIndicator } from '../../components/CenteredActivityIndicator';
 import { SearchBarCustom } from '../../components/SearchBar'
-import { FavouriteRecipeCard } from './components/FavouriteRecipeCard';
+import { FavouriteRecipesCards } from './components/FavouriteRecipesCards';
 
 export const Favourites = () => {
 
@@ -37,7 +37,7 @@ export const Favourites = () => {
             {!isLoading && <>
                 <SearchBarCustom />
 
-                <FavouriteRecipeCard favouriteRecipes={favouriteRecipes} />
+                <FavouriteRecipesCards favouriteRecipes={favouriteRecipes} />
             </>
             }
 

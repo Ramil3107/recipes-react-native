@@ -4,12 +4,11 @@ import { Image, TouchableOpacity } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-export const FavouriteRecipeCard = ({ favouriteRecipes }) => {
+export const FavouriteRecipesCards = ({ favouriteRecipes }) => {
 
     const [isFavouriteIconSelected, setIsFavouriteIconSelected] = useState(false);
 
     return (
-
         <FlatList
             data={favouriteRecipes}
             keyExtractor={item => item.id}
