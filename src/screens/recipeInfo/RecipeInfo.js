@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Button, FlatList, Image, LogBox, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useEffect } from 'react';
+import { Image, ScrollView, StyleSheet } from 'react-native';
 import { Ingredients } from './components/Ingredients'
 import { Servings } from './components/Servings'
 import { Steps } from './components/Steps'
 
 export const RecipeInfo = ({ route, navigation }) => {
+    const { image, ingredients, coockingTime, recipe, dish } = route.params
+
+    useEffect(() => {
+        navigation.setOptions({ title: truncateDishName(dish) })
+    }, [])
 
 
     const truncateDishName = (dishName) => {
@@ -14,12 +19,13 @@ export const RecipeInfo = ({ route, navigation }) => {
             return dishName
         }
     }
-    const { image, ingredients, coockingTime, recipe, dish } = route.params
-    navigation.setOptions({ title: truncateDishName(dish) })
+
 
     return (
         <ScrollView nestedScrollEnabled={true}>
-            <Image style={styles.cardImage} source={{ uri: image }} />
+            <Image
+                style={styles.cardImage}
+                source={{ uri: image }} />
 
             <Ingredients ingredients={ingredients} />
 
