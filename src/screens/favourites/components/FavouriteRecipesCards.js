@@ -3,10 +3,18 @@ import { ActivityIndicator, FlatList, StyleSheet, Text } from "react-native";
 import { Image, TouchableOpacity } from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from "react-redux";
-import { getFavouriteRecipesThunk } from "../../../../redux/recipesSlice";
+import { toggleFavouriteThunk } from "../../../../redux/recipesSlice";
 
 
 export const FavouriteRecipesCards = ({ favouriteRecipes, navigation, onRefresh, refreshing }) => {
+
+
+    const dispatch = useDispatch()
+
+    const onFavouriteIconClick = (id) => {
+        dispatch(toggleFavouriteThunk(id))
+    }
+
     return (
         <FlatList
             refreshing={refreshing}
@@ -32,7 +40,7 @@ export const FavouriteRecipesCards = ({ favouriteRecipes, navigation, onRefresh,
                             source={{ uri: item.image }}
                         />
                         <Icon
-                            onPress={() => console.log("Selected")}
+                            onPress={() => onFavouriteIconClick(item.id)}
                             style={styles.recipeCardIcon}
                             name={
                                 item.favourite

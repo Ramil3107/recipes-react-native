@@ -82,6 +82,14 @@ const recipesSlice = createSlice({
                     return recipe
                 }
             })
+            state.favouriteRecipes = state.favouriteRecipes.map(recipe => {
+                if (recipe.id == action.payload) {
+                    recipe.favourite = !recipe.favourite
+                    return recipe
+                } else {
+                    return recipe
+                }
+            })
         },
     }
 })
